@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import SearchBar from './components/search_bar.js';
+import YTSearch from 'youtube-api-search';
+import VideoList from './components/video_list.js';
+
+const API_KEY = 'AIzaSyBNSdULigiU7N205Rq-OLIkYSGKj_jfJyg';
 
 function App() {
+  const [videos, setVideos] = useState('');
+  YTSearch({ key: API_KEY, term: 'car' }, search_callback);
+
+  function search_callback(data) {
+    setVideos(data);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar />
+      <VideoList videos={videos} />
     </div>
   );
 }
